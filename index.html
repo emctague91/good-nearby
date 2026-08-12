@@ -350,5 +350,83 @@ document.addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 
+
+<script>
+(function(){
+  const ZIP_POINTS={
+    "60613":[41.956,-87.655],
+    "60622":[41.910,-87.680],
+    "60657":[41.940,-87.650],
+    "60647":[41.920,-87.705],
+    "60614":[41.922,-87.650],
+    "60618":[41.947,-87.704],
+    "60640":[41.966,-87.657],
+    "60654":[41.891,-87.634],
+    "60610":[41.900,-87.633],
+    "60601":[41.883,-87.629]
+  };
+
+  function zipDistance(lat1,lon1,lat2,lon2){
+    const R=3958.7613, r=Math.PI/180;
+    const a=Math.sin((lat2-lat1)*r/2)**2+
+      Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin((lon2-lon1)*r/2)**2;
+    return 2*R*Math.asin(Math.sqrt(a));
+  }
+
+  window.GN_zipSearch=function(zip){
+    zip=String(zip||'').trim();
+    const point=ZIP_POINTS[zip];
+    const status=document.getElementById('resultText');
+    if(!point){
+      if(status) status.textContent='Enter a Chicago ZIP code';
+      return;
+    }
+
+    // Use the DATA array directly and calculate distances here.
+    const rows=(window.DATA||[]).map(function(x){
+      const lat=Number(x.lat), lon=Number(x.lon);
+      return Object.assign({},x,{
+        distance:(Number.isFinite(lat)&&Number.isFinite(lon))
+          ? zipDistance(point[0],point[1],lat,lon) : 9999
+      });
+    }).sort((a,b)=>a.distance-b.distance);
+
+    window.activeZip=zip;
+    window.userLocation=null;
+    window.current=rows;
+
+    const input=document.getElementById('heroSearch');
+    if(input) input.value=zip;
+    if(status) status.textContent='Closest Good Nearby spots to '+zip;
+
+    if(typeof window.render==='function') window.render();
+  };
+
+  // Capture the Search button before older handlers can swallow the click.
+  document.addEventListener('click',function(e){
+    const b=e.target.closest && e.target.closest('button');
+    if(!b) return;
+    const text=(b.textContent||'').trim().toLowerCase();
+    if(text==='search'){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const input=document.getElementById('heroSearch');
+      const value=(input && input.value)||'';
+      const match=value.match(/\b\d{5}\b/);
+      if(match) window.GN_zipSearch(match[0]);
+    }
+  },true);
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && e.target && e.target.id==='heroSearch'){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const match=String(e.target.value||'').match(/\b\d{5}\b/);
+      if(match) window.GN_zipSearch(match[0]);
+    }
+  },true);
+})();
+</script>
+
 </body>
 </html>
