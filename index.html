@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Good Nearby — Chicago</title>
+<meta name="description" content="Good Nearby — the local guide for dog people. Discover dog-friendly places, services and events around Chicago.">
+<style>
+:root{--green:#0c3b2a;--green2:#174d39;--sage:#dfe8d8;--cream:#fbf8f0;--paper:#fffdf8;--ink:#193126;--muted:#6d776f;--line:#e7e2d8;--gold:#e7a82d;--shadow:0 12px 35px rgba(25,49,38,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0;letter-spacing:-.03em}.shell{max-width:1280px;margin:auto;padding:0 28px}
+header{height:76px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;z-index:20}.nav{display:flex;align-items:center;justify-content:space-between;width:100%}.brand{display:flex;gap:10px;align-items:center;font-weight:900;color:var(--green);font-size:22px;letter-spacing:.03em}.brandmark{width:38px;height:46px;background:var(--green);border-radius:50% 50% 50% 8px;transform:rotate(-45deg);display:grid;place-items:center;color:white}.brandmark span{transform:rotate(45deg);font-size:20px}.tag{font-size:11px;color:var(--muted);display:block;font-weight:500;letter-spacing:0}.navlinks{display:flex;gap:22px;align-items:center}.navlinks a{color:var(--ink);text-decoration:none;font-size:14px}.pill{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 16px;cursor:pointer}.hero{padding:70px 0 38px;background:linear-gradient(180deg,#f4f0e4 0,#fbf8f0 100%)}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}.eyebrow{color:var(--green2);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.13em}.hero h1{font-size:clamp(48px,6vw,78px);line-height:.95;margin:14px 0}.hero p{font-size:18px;color:var(--muted);max-width:600px;line-height:1.6}.search{display:flex;gap:10px;margin-top:28px;background:white;border:1px solid var(--line);padding:8px;border-radius:18px;box-shadow:var(--shadow)}.search input{flex:1;border:0;outline:0;padding:14px;font-size:16px;background:transparent}.primary{border:0;background:var(--green);color:white;padding:13px 19px;border-radius:12px;cursor:pointer;font-weight:800}.hero-art{min-height:340px;border-radius:34px;background:radial-gradient(circle at 70% 20%,#cbd9bd,transparent 35%),linear-gradient(145deg,#d8e1cf,#aebfa6);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;box-shadow:var(--shadow)}.hero-dog{font-size:170px;padding-bottom:25px;filter:drop-shadow(0 18px 20px rgba(0,0,0,.12))}
+.section{padding:45px 0}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.section-head p{color:var(--muted);margin:6px 0 0}.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.cat{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px 12px;cursor:pointer;transition:.2s}.cat:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.cat .ico{font-size:27px}.cat b{display:block;margin-top:10px;font-size:13px}.cat span{font-size:11px;color:var(--muted)}
+.explore{background:#f1eee4}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar select{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 14px;color:var(--ink)}.content-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.list{display:grid;gap:12px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;grid-template-columns:125px 1fr;gap:16px;cursor:pointer}.thumb{height:125px;border-radius:15px;background:linear-gradient(135deg,#b9cdb5,#e8d8b6);display:grid;place-items:center;font-size:58px}.card h3{font-size:23px}.meta{color:var(--muted);font-size:13px;margin:6px 0}.rating{color:var(--gold);font-weight:800}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.chip{font-size:11px;border:1px solid var(--line);padding:5px 8px;border-radius:999px;background:#fff}.map{min-height:520px;border-radius:22px;border:1px solid var(--line);background-color:#dce5d8;background-image:linear-gradient(30deg,transparent 48%,rgba(255,255,255,.8) 49%,rgba(255,255,255,.8) 51%,transparent 52%),linear-gradient(120deg,transparent 48%,rgba(255,255,255,.7) 49%,rgba(255,255,255,.7) 51%,transparent 52%);background-size:80px 80px;position:sticky;top:96px;overflow:hidden}.map:before{content:"CHICAGO";position:absolute;left:40%;top:44%;font:700 26px Georgia;color:#789078;opacity:.6}.pin{position:absolute;background:var(--green);color:#fff;width:34px;height:34px;border-radius:50% 50% 50% 8px;transform:rotate(-45deg);display:grid;place-items:center;box-shadow:0 5px 12px rgba(0,0,0,.18)}.pin span{transform:rotate(45deg);font-size:15px}.map-note{position:absolute;bottom:14px;left:14px;right:14px;background:rgba(255,253,248,.94);border:1px solid var(--line);padding:12px 14px;border-radius:14px;font-size:12px;color:var(--muted)}
+.neighborhoods{display:flex;gap:10px;flex-wrap:wrap}.neighborhoods button{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 14px;cursor:pointer}
+.cta{margin:20px 0 55px;background:var(--green);color:white;border-radius:26px;padding:34px;display:flex;align-items:center;justify-content:space-between;gap:20px}.cta h2{font-size:34px}.cta p{color:#d9e5da}.cta .primary{background:white;color:var(--green)}
+footer{background:var(--green);color:#dce8de;padding:35px 0}.footer-grid{display:flex;justify-content:space-between;gap:25px}.footer-brand{color:white;font-weight:900;font-size:20px}.footer-grid a{color:#dce8de;text-decoration:none;font-size:13px}
+.modal{position:fixed;inset:0;background:rgba(10,27,19,.48);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}.modal.open{display:flex}.modalbox{background:var(--paper);max-width:720px;width:100%;max-height:90vh;overflow:auto;border-radius:26px;padding:26px;box-shadow:0 25px 70px rgba(0,0,0,.25)}.modaltop{display:flex;justify-content:space-between;gap:15px}.close{border:0;background:#eee;border-radius:50%;width:38px;height:38px;cursor:pointer}.detail-hero{height:220px;border-radius:20px;background:linear-gradient(135deg,#b9cdb5,#e8d8b6);display:grid;place-items:center;font-size:100px;margin:18px 0}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.detail-item{background:#f2eee4;border-radius:14px;padding:13px;font-size:13px}.detail-item b{display:block;margin-bottom:4px}.actions{display:flex;gap:10px;flex-wrap:wrap}.outline{border:1px solid var(--green);background:white;color:var(--green);padding:12px 17px;border-radius:12px;font-weight:800;cursor:pointer}
+.form{display:grid;gap:12px}.form input,.form textarea,.form select{border:1px solid var(--line);border-radius:12px;padding:12px;background:white}.form textarea{min-height:100px;resize:vertical}
+@media(max-width:900px){.hero-grid,.content-grid{grid-template-columns:1fr}.categories{grid-template-columns:repeat(3,1fr)}.map{position:relative;top:auto;min-height:300px}.navlinks a:not(.business){display:none}.hero-art{min-height:230px}.hero-dog{font-size:120px}}
+@media(max-width:600px){.shell{padding:0 16px}.hero{padding-top:42px}.hero h1{font-size:52px}.categories{grid-template-columns:repeat(2,1fr)}.card{grid-template-columns:90px 1fr;padding:12px}.thumb{height:90px;font-size:42px}.card h3{font-size:19px}.cta{display:block}.cta .primary{margin-top:15px}.footer-grid{display:grid}.search{display:block}.search .primary{width:100%;margin-top:6px}.search input{width:100%}}
+</style>
+</head>
+<body>
+<header><div class="shell nav">
+  <a href="#" class="brand" onclick="goHome();return false"><div class="brandmark"><span>🐾</span></div><div>GOOD NEARBY<span class="tag">The local guide for dog people.</span></div></a>
+  <nav class="navlinks"><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#business" class="business">For Businesses</a><button class="pill" onclick="openBusiness()">List your business</button></nav>
+</div></header>
+
+<section class="hero"><div class="shell hero-grid">
+  <div><div class="eyebrow">Chicago • Made for dog people</div><h1>Find good places to go with your dog.</h1><p>Dog-friendly places, trusted services, and things to do — curated for you and your pup.</p>
+    <div class="search"><input id="heroSearch" placeholder="Search places, services & events" onkeydown="if(event.key==='Enter')doSearch()"><button class="primary" onclick="doSearch()">Search</button></div>
+    <div style="margin-top:14px;color:var(--muted);font-size:13px">📍 <b>Chicago, IL</b> · <button style="border:0;background:none;color:var(--green2);font-weight:800;cursor:pointer" onclick="nearMe()">Use my location</button></div>
+  </div>
+  <div class="hero-art"><div class="hero-dog">🐕</div></div>
+</div></section>
+
+<section class="section" id="categories"><div class="shell">
+  <div class="section-head"><div><h2>What are you looking for?</h2><p>Start with what you and your dog need today.</p></div></div>
+  <div class="categories">
+    <div class="cat" onclick="filterCat('Parks & Trails')"><div class="ico">🌳</div><b>Parks & Trails</b><span>Outdoor spots</span></div>
+    <div class="cat" onclick="filterCat('Eat & Drink')"><div class="ico">🍽️</div><b>Eat & Drink</b><span>Patios & cafés</span></div>
+    <div class="cat" onclick="filterCat('Care')"><div class="ico">🏥</div><b>Care</b><span>Vets & grooming</span></div>
+    <div class="cat" onclick="filterCat('Services')"><div class="ico">🐾</div><b>Services</b><span>Training & daycare</span></div>
+    <div class="cat" onclick="filterAll()"><div class="ico">🎉</div><b>Events</b><span>Coming soon</span></div>
+    <div class="cat" onclick="filterAll()"><div class="ico">📍</div><b>Near Me</b><span>Find it now</span></div>
+  </div>
+</div></section>
+
+<section class="section explore" id="explore"><div class="shell">
+  <div class="section-head"><div><h2>Explore Chicago</h2><p id="resultText">Good places, right nearby.</p></div><button class="pill" onclick="filterAll()">Clear filters</button></div>
+  <div class="toolbar">
+    <select id="catFilter" onchange="applyFilters()"><option value="">All categories</option><option>Eat & Drink</option><option>Parks & Trails</option><option>Care</option><option>Services</option></select>
+    <select id="hoodFilter" onchange="applyFilters()"><option value="">All neighborhoods</option></select>
+    <select id="sortFilter" onchange="applyFilters()"><option value="distance">Nearest first</option><option value="rating">Highest rated</option></select>
+  </div>
+  <div class="content-grid"><div class="list" id="listingList"></div><div class="map" id="map"></div></div>
+</div></section>
+
+<section class="section"><div class="shell"><div class="section-head"><div><h2>Explore by neighborhood</h2><p>Find something good around your part of Chicago.</p></div></div><div class="neighborhoods" id="hoods"></div></div></section>
+
+<section class="shell"><div class="cta" id="business"><div><div class="eyebrow" style="color:#b9d1bd">For local businesses</div><h2>Want more local dog owners to find you?</h2><p>Claim your listing and become part of Good Nearby.</p></div><button class="primary" onclick="openBusiness()">List your business →</button></div></section>
+
+<footer><div class="shell footer-grid"><div><div class="footer-brand">🐾 GOOD NEARBY</div><div style="margin-top:7px;font-size:12px">Good places. Good people. Happy dogs. ♥</div></div><div><a href="#explore">Explore</a> · <a href="#categories">Categories</a> · <a href="#business">For Businesses</a></div><div style="font-size:12px">Chicago MVP • Built for dog people</div></div></footer>
+
+<div class="modal" id="modal"><div class="modalbox" id="modalBox"></div></div>
+
+<script>
+const DATA = [{"id": 1, "name": "Big Star – Wicker Park", "category": "Eat & Drink", "neighborhood": "Wicker Park", "rating": 4.8, "price": "$$", "distance": 0.2, "access": "Patio only", "amenities": ["Water bowls", "Treats", "Outdoor", "Heated (seasonal)"], "desc": "A classic Wicker Park patio where you can grab tacos without leaving your pup at home.", "why": "A lively dog-friendly patio with great food and plenty of outdoor energy.", "address": "1531 N Damen Ave, Chicago, IL 60622"}, {"id": 2, "name": "The Perch", "category": "Eat & Drink", "neighborhood": "Wicker Park", "rating": 4.6, "price": "$$", "distance": 0.4, "access": "Patio only", "amenities": ["Dog menu", "Outdoor", "Water"], "desc": "A neighborhood patio and beer-garden-style stop with a dog menu.", "why": "A relaxed spot for brunch or drinks with your dog by your side.", "address": "1932 W Division St, Chicago, IL 60622"}, {"id": 3, "name": "Diego", "category": "Eat & Drink", "neighborhood": "River West", "rating": 4.5, "price": "$$", "distance": 0.8, "access": "Dog-friendly patio", "amenities": ["Water", "Outdoor", "Heated / enclosed"], "desc": "Mexican food, brunch, and a dog-friendly heated patio.", "why": "A strong cold-weather patio candidate for dog owners who still want to go out.", "address": "459 N Ogden Ave, Chicago, IL 60642"}, {"id": 4, "name": "Park & Field", "category": "Eat & Drink", "neighborhood": "Logan Square", "rating": 4.4, "price": "$$", "distance": 1.1, "access": "Patio only", "amenities": ["Dog menu", "Outdoor", "Fire pit"], "desc": "A neighborhood beer garden with outdoor space and pup-friendly touches.", "why": "Easygoing outdoor atmosphere with room to hang out.", "address": "3509 W Fullerton Ave, Chicago, IL 60647"}, {"id": 5, "name": "Montrose Dog Friendly Area", "category": "Parks & Trails", "neighborhood": "Uptown / Montrose", "rating": 4.7, "price": "Free / permit", "distance": 2.6, "access": "Off-leash DFA", "amenities": ["Lakefront", "Off-leash", "Water"], "desc": "A lakefront designated dog-friendly area for off-leash play.", "why": "One of Chicago's signature dog outings, especially when your pup needs a real run.", "address": "4697 Lawrence Ave, Chicago, IL 60640"}, {"id": 6, "name": "Wicker Park Dog Friendly Area", "category": "Parks & Trails", "neighborhood": "Wicker Park", "rating": 4.5, "price": "Free / permit", "distance": 0.5, "access": "Off-leash DFA", "amenities": ["Fenced", "Off-leash"], "desc": "A fenced neighborhood dog run in the heart of Wicker Park.", "why": "A convenient everyday option for neighborhood dogs who need a quick off-leash break.", "address": "1425 N Damen Ave, Chicago, IL 60622"}, {"id": 7, "name": "Mary Bartelme Park", "category": "Parks & Trails", "neighborhood": "West Loop", "rating": 4.6, "price": "Free / verify", "distance": 1.7, "access": "Dog area", "amenities": ["Outdoor", "Neighborhood park"], "desc": "A West Loop park with a dedicated dog area and plenty of neighborhood activity.", "why": "A useful West Loop resource for a walk and a little dog social time.", "address": "115 S Sangamon St, Chicago, IL 60607"}, {"id": 8, "name": "West Loop Veterinary Care", "category": "Care", "neighborhood": "West Loop", "rating": 4.8, "price": "$$$", "distance": 1.5, "access": "Veterinary care", "amenities": ["Small animal", "Appointments", "Emergency info"], "desc": "A full-service small-animal veterinary hospital in the West Loop.", "why": "A practical, trusted local resource for routine and urgent pet care.", "address": "815 W Randolph St, Chicago, IL 60607"}, {"id": 9, "name": "Companion Animal Hospital Wicker Park", "category": "Care", "neighborhood": "Wicker Park", "rating": 4.7, "price": "$$$", "distance": 0.7, "access": "Veterinary care", "amenities": ["Small animal", "Appointments"], "desc": "A neighborhood veterinary hospital offering routine and advanced care.", "why": "A convenient care option for Wicker Park dog owners.", "address": "2134 W Division St, Chicago, IL 60622"}, {"id": 10, "name": "Dashing Dog – West Loop", "category": "Care", "neighborhood": "West Loop", "rating": 4.9, "price": "$$", "distance": 1.3, "access": "Grooming", "amenities": ["Full-service grooming", "Gentle handling"], "desc": "Full-service grooming with a strong local reputation for gentle handling.", "why": "A polished grooming option for pups who need a little extra care.", "address": "612 W Lake St, Chicago, IL 60661"}, {"id": 11, "name": "Back To Basics Dog Training", "category": "Services", "neighborhood": "Avondale / North Center", "rating": 5.0, "price": "$$$", "distance": 3.1, "access": "Training", "amenities": ["Private lessons", "Behavior", "Board & Train"], "desc": "Private lessons, obedience, behavior modification, and intensive training programs.", "why": "A strong option for owners who want personalized training support.", "address": "3232 N Elston Ave, Chicago, IL 60618"}, {"id": 12, "name": "Anything Is Pawzible", "category": "Services", "neighborhood": "Avondale", "rating": 4.9, "price": "$$$", "distance": 3.4, "access": "Training", "amenities": ["Positive reinforcement", "Group classes"], "desc": "Positive-reinforcement training with group and specialized programs.", "why": "A good fit for owners looking for structured, reward-based training.", "address": "3358 N Pulaski Rd, Chicago, IL 60641"}, {"id": 13, "name": "Copilot Dog Training", "category": "Services", "neighborhood": "Avondale", "rating": 5.0, "price": "$$$", "distance": 3.2, "access": "Training", "amenities": ["Positive reinforcement", "Playgroups"], "desc": "Positive-reinforcement training with specialized support and small-dog playgroups.", "why": "Useful for owners who want training plus thoughtful social opportunities.", "address": "3266 N Elston Ave, Chicago, IL 60618"}, {"id": 14, "name": "Tucker Pup's Pet Resort", "category": "Services", "neighborhood": "West Loop / Fulton Market", "rating": 4.7, "price": "$$$", "distance": 1.4, "access": "Daycare / boarding", "amenities": ["Daycare", "Boarding", "Grooming", "Training"], "desc": "An all-in-one dog-care facility offering daycare, boarding, grooming, and training.", "why": "A convenient one-stop option when your dog needs more than a walk.", "address": "219 N Carpenter St, Chicago, IL 60607"}, {"id": 15, "name": "Found Chicago Boarding & Training Center", "category": "Services", "neighborhood": "North Center / Ravenswood", "rating": 4.7, "price": "$$$", "distance": 3.7, "access": "Boarding / training", "amenities": ["Boarding", "Daycare", "Training"], "desc": "Training-integrated boarding and structured daycare.", "why": "Helpful for owners who want care and training handled together.", "address": "4108 N Rockwell St, Chicago, IL 60618"}, {"id": 16, "name": "Bowie Barker South Loop", "category": "Care", "neighborhood": "South Loop", "rating": 5.0, "price": "$$", "distance": 2.2, "access": "Grooming / self-wash", "amenities": ["Grooming", "DIY self-wash"], "desc": "Professional grooming plus a DIY self-wash option.", "why": "Flexible for owners who want full grooming or prefer to do bath time themselves.", "address": "640 S Wabash Ave, Chicago, IL 60605"}, {"id": 17, "name": "Farm Bar – Lakeview", "category": "Eat & Drink", "neighborhood": "Lakeview", "rating": 4.2, "price": "$$", "distance": 2.4, "access": "Patio / outdoor", "amenities": ["Outdoor", "Patio"], "desc": "A neighborhood farm-to-table spot with outdoor seating.", "why": "A good candidate for patio-season neighborhood hangs.", "address": "1300 W Wellington Ave, Chicago, IL 60657"}, {"id": 18, "name": "Forbidden Root", "category": "Eat & Drink", "neighborhood": "West Town", "rating": 4.3, "price": "$$", "distance": 1.2, "access": "Dog-friendly", "amenities": ["Brewery", "Outdoor"], "desc": "A botanical brewery and restaurant with dog-friendly dining.", "why": "A fun casual option for a beer, food, and dog-friendly outing.", "address": "1746 W Chicago Ave, Chicago, IL 60622"}];
+let current = [...DATA];
+const saved = new Set(JSON.parse(localStorage.getItem('gn_saved')||'[]'));
+
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function iconFor(cat){return cat==='Eat & Drink'?'🍽️':cat==='Parks & Trails'?'🌳':cat==='Care'?'🏥':'🐾';}
+function render(){
+  const list=document.getElementById('listingList');
+  list.innerHTML=current.map(x=>`<article class="card" onclick="openListing(${x.id})">
+    <div class="thumb">${iconFor(x.category)}</div>
+    <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800">${esc(x.category)}</div>
+    <h3>${esc(x.name)}</h3><div class="meta"><span class="rating">★ ${x.rating}</span> · ${esc(x.price)} · ${esc(x.neighborhood)} · ${x.distance} mi</div>
+    <div class="meta">${esc(x.access)}</div><div class="chips">${x.amenities.slice(0,3).map(a=>`<span class="chip">${esc(a)}</span>`).join('')}</div></div>
+  </article>`).join('');
+  document.getElementById('resultText').textContent=`${current.length} Good Nearby picks`;
+  renderMap();
+}
+function renderMap(){
+  const map=document.getElementById('map');
+  map.querySelectorAll('.pin').forEach(p=>p.remove());
+  current.slice(0,10).forEach((x,i)=>{
+    const p=document.createElement('button');p.className='pin';p.style.left=(10+(i*17)%78)+'%';p.style.top=(16+(i*23)%68)+'%';p.innerHTML='<span>🐾</span>';p.title=x.name;p.onclick=()=>openListing(x.id);map.appendChild(p);
+  });
+}
+function applyFilters(){
+  const cat=document.getElementById('catFilter').value, hood=document.getElementById('hoodFilter').value, sort=document.getElementById('sortFilter').value;
+  current=DATA.filter(x=>(!cat||x.category===cat)&&(!hood||x.neighborhood===hood));
+  current.sort((a,b)=>sort==='rating'?b.rating-a.rating:a.distance-b.distance);render();
+}
+function filterCat(cat){document.getElementById('catFilter').value=cat;document.getElementById('hoodFilter').value='';applyFilters();location.hash='explore';}
+function filterAll(){document.getElementById('catFilter').value='';document.getElementById('hoodFilter').value='';current=[...DATA];render();}
+function doSearch(){const q=document.getElementById('heroSearch').value.toLowerCase().trim();current=q?DATA.filter(x=>(x.name+' '+x.category+' '+x.neighborhood+' '+x.access+' '+x.amenities.join(' ')).toLowerCase().includes(q)):[...DATA];document.getElementById('catFilter').value='';document.getElementById('hoodFilter').value='';render();location.hash='explore';}
+function openListing(id){
+  const x=DATA.find(a=>a.id===id);if(!x)return;
+  const isSaved=saved.has(x.id);
+  document.getElementById('modalBox').innerHTML=`<div class="modaltop"><div><div class="eyebrow">${esc(x.category)} · ${esc(x.neighborhood)}</div><h2 style="font-size:36px;margin-top:6px">${esc(x.name)}</h2></div><button class="close" onclick="closeModal()">×</button></div>
+  <div class="detail-hero">${iconFor(x.category)}</div>
+  <div class="meta"><span class="rating">★ ${x.rating}</span> · <b>Good Nearby Score</b> · ${esc(x.price)} · ${esc(x.neighborhood)}</div>
+  <p style="font-size:16px;line-height:1.6">${esc(x.desc)}</p>
+  <div class="detail-grid">${[['🐕','Dog access',x.access],['💧','Water bowls',x.amenities.some(a=>/water/i.test(a))?'Yes':'Verify'],['🦴','Treats',x.amenities.some(a=>/treat|menu/i.test(a))?'Yes':'Verify'],['☀️','Outdoor / heated',x.amenities.filter(a=>/outdoor|heated/i.test(a)).join(', ')||'Verify'],['📍','Address',x.address],['🚗','Distance',x.distance+' mi away']].map(a=>`<div class="detail-item"><b>${a[0]} ${a[1]}</b>${esc(a[2])}</div>`).join('')}</div>
+  <h3 style="font-size:24px">💚 Why It's Good Nearby</h3><p style="line-height:1.6">${esc(x.why)}</p>
+  <div class="actions"><button class="primary" onclick="maps('${esc(x.address)}')">Directions ↗</button><button class="outline" onclick="toggleSave(${x.id})">${isSaved?'♥ Saved':'♡ Save'}</button><button class="outline" onclick="alert('Website link will be connected when the listing is verified.')">Website</button></div>
+  <p style="font-size:11px;color:var(--muted);margin-top:18px">Dog policies and amenities can change. Good Nearby will verify details with businesses before publishing a listing as confirmed.</p>`;
+  document.getElementById('modal').classList.add('open');
+}
+function toggleSave(id){saved.has(id)?saved.delete(id):saved.add(id);localStorage.setItem('gn_saved',JSON.stringify([...saved]));openListing(id);}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function maps(address){window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(address),'_blank')}
+function openBusiness(){
+  document.getElementById('modalBox').innerHTML=`<div class="modaltop"><div><div class="eyebrow">For local businesses</div><h2 style="font-size:36px;margin-top:6px">Get discovered by dog owners.</h2></div><button class="close" onclick="closeModal()">×</button></div>
+  <p style="line-height:1.6;color:var(--muted)">This MVP form is our first business lead-capture flow. In the live product, it will create a claim/submission ticket for the Good Nearby team.</p>
+  <form class="form" onsubmit="submitBusiness(event)"><input required placeholder="Business name"><input required placeholder="Business email"><input placeholder="Website"><select required><option value="">Business category</option><option>Restaurant / Café</option><option>Park / Outdoor</option><option>Vet / Groomer</option><option>Trainer</option><option>Boarding / Daycare</option><option>Other</option></select><textarea placeholder="Tell us what makes your business dog-friendly"></textarea><button class="primary">Submit my business →</button></form>`;
+  document.getElementById('modal').classList.add('open');
+}
+function submitBusiness(e){e.preventDefault();document.getElementById('modalBox').innerHTML='<div style="text-align:center;padding:45px 15px"><div style="font-size:65px">🐾</div><h2 style="font-size:34px">You’re on the list!</h2><p style="color:var(--muted);line-height:1.6">In the live version, this submission will go into the Good Nearby business dashboard for review.</p><button class="primary" onclick="closeModal()">Done</button></div>'}
+function nearMe(){alert('Location permission will be connected in the live build. For this Chicago MVP, we are keeping the experience centered on Chicago.');}
+function goHome(){window.scrollTo({top:0,behavior:'smooth'});}
+function init(){
+  const hoods=[...new Set(DATA.map(x=>x.neighborhood))].sort();
+  document.getElementById('hoodFilter').innerHTML='<option value="">All neighborhoods</option>'+hoods.map(h=>`<option>${esc(h)}</option>`).join('');
+  document.getElementById('hoods').innerHTML=hoods.slice(0,12).map(h=>`<button onclick="document.getElementById('hoodFilter').value='${esc(h)}';applyFilters();location.hash='explore'">${esc(h)}</button>`).join('');
+  render();
+  document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+}
+init();
+</script>
+</body>
+</html>
