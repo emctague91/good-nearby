@@ -81,7 +81,7 @@ footer{background:var(--green);color:#dce8de;padding:35px 0}.footer-grid{display
     <button class="cat" type="button" onclick="filterCat('Care');return false"><div class="ico">🏥</div><b>Care</b><span>Vets & grooming</span></button>
     <button class="cat" type="button" onclick="filterCat('Services');return false"><div class="ico">🐾</div><b>Services</b><span>Training & daycare</span></button>
     <button class="cat" type="button" onclick="showEvents()"><div class="ico">🎉</div><b>Events</b><span>Coming soon</span></button>
-    <button class="cat" type="button" onclick="filterAll()"><div class="ico">📍</div><b>Near Me</b><span>Find it now</span></button>
+    <button class="cat" type="button" onclick="nearMe()"><div class="ico">📍</div><b>Near Me</b><span>Find it now</span></button>
   </div>
 </div></section>
 
@@ -227,19 +227,23 @@ async function useDeviceLocation(){
   );
 }
 
+
 function doSearch(){
-  const q=normalize(document.getElementById('heroSearch').value);
-  const z=q.match(/\b\d{5}\b/);
-  if(z){activeZip=z[0];userLocation=null;current=ZIP_CENTERS[activeZip]?sortNearby(DATA.slice(),ZIP_CENTERS[activeZip][0],ZIP_CENTERS[activeZip][1]):DATA.filter(x=>x.zip===activeZip);current=applyContext(current);}
-  else if(!q){current=applyContext([...DATA]);}
-  else{
-    const stop=new Set(['a','an','the','and','or','with','for','near','me','my','in','to','go','place','places','dog','dogs','friendly']);
-    const tokens=q.split(' ').filter(t=>t.length>1&&!stop.has(t));
-    current=DATA.filter(x=>{const hay=normalize([x.name,x.category,x.neighborhood,x.access,x.desc,x.why,x.amenities.join(' '),x.address,x.zip].join(' '));return hay.includes(q)||(tokens.length&&tokens.every(t=>hay.includes(t)));});
-    current=applyContext(current);
-  }
-  document.getElementById('catFilter').value='';document.getElementById('hoodFilter').value='';document.getElementById('sortFilter').value='distance';render();document.getElementById('explore').scrollIntoView({behavior:'smooth',block:'start'});
+  const raw=document.getElementById('heroSearch').value.trim();
+  const match=raw.match(/\b\d{5}\b/);
+  if(match && window.GNSearchZip && window.GNSearchZip(match[0])) return;
+  const q=normalize(raw);
+  if(!q){ current=applyContext([...DATA]); render(); return; }
+  const words=q.split(/\s+/).filter(Boolean);
+  current=DATA.filter(x=>{
+    const hay=[x.name,x.category,x.neighborhood,x.address,x.what,x.detail,x.why].join(' ').toLowerCase();
+    return words.every(w=>hay.includes(w));
+  });
+  current=applyContext(current);
+  document.getElementById('resultText').textContent=current.length?`Results for “${raw}”`:`No Good Nearby results for “${raw}”`;
+  render();
 }
+
 function toggleSave(id){saved.has(id)?saved.delete(id):saved.add(id);localStorage.setItem('gn_saved',JSON.stringify([...saved]));openListing(id);}
 function closeModal(){document.getElementById('modal').classList.remove('open')}
 function maps(address){window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(address),'_blank')}
@@ -256,7 +260,7 @@ function init(){
   const hoods=[...new Set(DATA.map(x=>x.neighborhood))].sort();
   const zips=[...new Set(DATA.map(x=>x.zip).filter(Boolean))].sort();
   document.getElementById('hoodFilter').innerHTML='<option value="">All neighborhoods</option>'+hoods.map(h=>`<option>${esc(h)}</option>`).join('');
-  document.getElementById('zipFilter').innerHTML='<option value="">All ZIP codes</option>'+zips.map(z=>`<option value="${esc(z)}">${esc(z)}</option>`).join('');
+  const zipEl=document.getElementById('zipFilter'); if(zipEl) zipEl.innerHTML='<option value="">All ZIP codes</option>'+zips.map(z=>`<option value="${esc(z)}">${esc(z)}</option>`).join('');
   document.getElementById('hoods').innerHTML=hoods.slice(0,12).map(h=>`<button onclick="document.getElementById('hoodFilter').value='${esc(h)}';document.getElementById('catFilter').value='';document.getElementById('zipFilter').value='';applyFilters();document.getElementById('explore').scrollIntoView({behavior:'smooth',block:'start'})">${esc(h)}</button>`).join('');
   render();
   document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
@@ -354,77 +358,23 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 (function(){
   const ZIP_POINTS={
-    "60613":[41.956,-87.655],
-    "60622":[41.910,-87.680],
-    "60657":[41.940,-87.650],
-    "60647":[41.920,-87.705],
-    "60614":[41.922,-87.650],
-    "60618":[41.947,-87.704],
-    "60640":[41.966,-87.657],
-    "60654":[41.891,-87.634],
-    "60610":[41.900,-87.633],
-    "60601":[41.883,-87.629]
+    "60613":[41.956,-87.655],"60622":[41.910,-87.680],"60657":[41.940,-87.650],
+    "60647":[41.920,-87.705],"60614":[41.922,-87.650],"60618":[41.947,-87.704],
+    "60640":[41.966,-87.657],"60654":[41.891,-87.634],"60610":[41.900,-87.633],
+    "60601":[41.883,-87.629],"60607":[41.872,-87.652],"60611":[41.895,-87.622],
+    "60661":[41.884,-87.647]
   };
-
-  function zipDistance(lat1,lon1,lat2,lon2){
-    const R=3958.7613, r=Math.PI/180;
-    const a=Math.sin((lat2-lat1)*r/2)**2+
-      Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin((lon2-lon1)*r/2)**2;
-    return 2*R*Math.asin(Math.sqrt(a));
-  }
-
-  window.GN_zipSearch=function(zip){
-    zip=String(zip||'').trim();
-    const point=ZIP_POINTS[zip];
+  window.GNSearchZip=function(zip){
+    const p=ZIP_POINTS[String(zip).trim()];
+    if(!p) return false;
+    activeZip=String(zip).trim();
+    userLocation=null;
+    current=sortNearby(DATA.slice(),p[0],p[1]);
     const status=document.getElementById('resultText');
-    if(!point){
-      if(status) status.textContent='Enter a Chicago ZIP code';
-      return;
-    }
-
-    // Use the DATA array directly and calculate distances here.
-    const rows=(window.DATA||[]).map(function(x){
-      const lat=Number(x.lat), lon=Number(x.lon);
-      return Object.assign({},x,{
-        distance:(Number.isFinite(lat)&&Number.isFinite(lon))
-          ? zipDistance(point[0],point[1],lat,lon) : 9999
-      });
-    }).sort((a,b)=>a.distance-b.distance);
-
-    window.activeZip=zip;
-    window.userLocation=null;
-    window.current=rows;
-
-    const input=document.getElementById('heroSearch');
-    if(input) input.value=zip;
-    if(status) status.textContent='Closest Good Nearby spots to '+zip;
-
-    if(typeof window.render==='function') window.render();
+    if(status) status.textContent='Closest Good Nearby spots to '+activeZip;
+    render();
+    return true;
   };
-
-  // Capture the Search button before older handlers can swallow the click.
-  document.addEventListener('click',function(e){
-    const b=e.target.closest && e.target.closest('button');
-    if(!b) return;
-    const text=(b.textContent||'').trim().toLowerCase();
-    if(text==='search'){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      const input=document.getElementById('heroSearch');
-      const value=(input && input.value)||'';
-      const match=value.match(/\b\d{5}\b/);
-      if(match) window.GN_zipSearch(match[0]);
-    }
-  },true);
-
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Enter' && e.target && e.target.id==='heroSearch'){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      const match=String(e.target.value||'').match(/\b\d{5}\b/);
-      if(match) window.GN_zipSearch(match[0]);
-    }
-  },true);
 })();
 </script>
 
